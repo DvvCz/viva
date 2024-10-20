@@ -1,0 +1,12 @@
+[package]
+name = "viva"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0.90"
+clap = { version = "4.5.20", features = ["derive"] }
+indoc = "2.0.5"
+nestify = "0.3.3"
+serde = { version = "1.0.210", features = ["derive"] }
+toml = "0.8.19"
