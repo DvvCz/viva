@@ -90,14 +90,16 @@ impl<'a> Project<'a> {
 		Ok(())
 	}
 
-	pub fn simulate(&self) -> anyhow::Result<()> {
+	pub fn simulate(&self, uvm: Option<String>) -> anyhow::Result<()> {
 		let target = Self::get_or_mkdir(self.target())?;
 		let sim_script = target.join("sim.tcl");
+		let uvm = uvm.as_ref().unwrap_or(&self.config.entrypoints.sim);
 
 		std::fs::write(
 			&sim_script,
-			indoc::indoc! {"
+			indoc::formatdoc! {"
 				open_project ./target/debug/build.xpr
+				set_property -name {{xsim.simulate.xsim.more_options}} -value {{-testplusarg UVM_TESTNAME={uvm}}} -objects [get_filesets sim_1]
 				launch_simulation
 			"},
 		)?;

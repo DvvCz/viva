@@ -16,9 +16,9 @@ fn main() -> anyhow::Result<()> {
 
 		cli::Commands::Synth => {}
 
-		cli::Commands::Simulate => {
+		cli::Commands::Simulate { uvm, uvm_verbosity } => {
 			let p = project::Project::open(&cd)?;
-			p.simulate()?;
+			p.simulate(uvm)?;
 		}
 
 		cli::Commands::Tcl => {
